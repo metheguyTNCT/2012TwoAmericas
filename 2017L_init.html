@@ -379,364 +379,1339 @@ document.getElementById("header").src = "https://i.imgur.com/ajdsBjv.jpeg";
 
 document.body.background = "https://i.imgur.com/KNTznwN.png";
 
-document.head.innerHTML += "<style>#results_container {color:#000000;} .inner_window_w_desc {background-color:#fde7f3!important;}</style>";
+document.head.innerHTML += "<style>#results_container {color:#000000;}</style>";
+document.head.innerHTML += `<style>
+    label {
+      font-size: 1em !important;
+    }
 
+    body {
+      display: flex !important;
+    }
+
+    #game_window {
+      max-width: 1000px;
+    }
+    .overlay_window {
+      height: 65%;
+      width: 55%;
+    }
+    #inner_window_2 {
+    background-color: #e2e2e2;
+  }
+  #inner_window_3 {
+    background-color: #e2e2e2;
+  }
+  #inner_window_4 {
+    background-color: #e2e2e2;
+  }
+  .campaign_trail_start_emphasis {
+    background-color: #e2e2e257;
+  }
+
+
+  </style>`
+campaignTrail_temp.achievements = {
+  }
+  const div = document.getElementById('announcement');
+  if (div) {
+    div.style.display = 'none';      // 隐藏（不占位）
+    // div.style.visibility = 'hidden'; // 隐藏（占位）
+  }
+
+  $("#game_start").click((event) => {
+    event.preventDefault();
+    $("#election_id_button").click((event) => {
+
+
+        setInterval(changeFontColour, 200)
+
+    })
+  })
+
+
+  e.runIntro = true;
+  RecReading=true
+
+
+  corrr = `
+  <div style="font-size: 11px; font-family: monospace; color: white;">
+    <h2 style="font-style: normal;">
+      <img src="https://i.imgur.com/eiKuPeR.gif" alt="" style="margin-top: 5px;">
+    </h2>
+  </div>
+  `;
+  // Select the node that will be observed for mutations
+  const windowsAdvisorTargetNode = document.getElementById("game_window");
+
+  // Options for the observer (which mutations to observe)
+  const windowsAdvisorConfig = { attributes: true, childList: true, subtree: true };
+
+  // Callback function to execute when mutations are observed
+  const callback = (mutationList, observer) => {
+  visitWindow = document.getElementsByClassName("overlay_window")[0];
+
+  if(visitWindow == null || visitWindow.classList.contains("done")) {
+  return;
+  }
+  visitWindow.classList.add("done");
+  visitWindow.classList.add("window");
+  let titleBar = visitWindow.querySelector("h3");
+  titleBar.classList.add("title-bar");
+  titleBar.classList.add("title-bar-text")
+  titleBar.style.paddingLeft = "3px";
+
+  };
+
+  class Song {
+  constructor(title, artist, coverLink, audioLink) {
+  this.title = title;
+  this.artist = artist;
+  this.coverLink = coverLink;
+  this.audioLink = audioLink;
+  }
+  getTitle() {
+  return this.title;
+  }
+
+  getArtist() {
+  return this.artist;
+  }
+  getCoverLink() {
+  return this.coverLink;
+  }
+
+  getAudioLink() {
+  return this.audioLink;
+  }
+  }
+
+  class Playlist {
+    constructor() {
+      // albums 数组，每个元素是一个专辑（歌曲数组）
+      this.albums = [];
+      this.currentAlbumIndex = 0;
+      this.currentSongIndex = 0;
+      this.loop = false; // 单曲循环状态
+    }
+
+    addSong(song, albumIndex) {
+      if (!this.albums[albumIndex]) {
+        this.albums[albumIndex] = [];
+      }
+      this.albums[albumIndex].push(song);
+    }
+
+    getCurrentSong() {
+      return this.albums[this.currentAlbumIndex][this.currentSongIndex];
+    }
+
+    playNext() {
+      if (this.loop) {
+        return; // 单曲循环时不切换歌曲
+      }
+      let album = this.albums[this.currentAlbumIndex];
+      this.currentSongIndex = (this.currentSongIndex + 1) % album.length;
+    }
+
+  playPrevious() {
+    let album = this.albums[this.currentAlbumIndex];
+    this.currentSongIndex = (this.currentSongIndex - 1 + album.length) % album.length;
+  }
+  nextAlbum() {
+    // 切换到下一个专辑，并重置歌曲索引
+    this.currentAlbumIndex = (this.currentAlbumIndex + 1) % this.albums.length;
+    this.currentSongIndex = 0;
+  }
+  }
+  window.Playlist = Playlist;
+  window.Song = Song;
+
+
+  function changePlaylist(newPlaylist) {
+    playlist = newPlaylist;
+    playlist.currentAlbumIndex = 0;
+    playlist.currentSongIndex = 0;
+    updateUI(playlist);
+    const audio = document.getElementById("audio");
+    audio.src = playlist.getCurrentSong().audioLink;
+    audio.play();
+  }
+  window.changePlaylist = changePlaylist;
+
+  function updateUI(playlist) {
+    const currentSong = playlist.getCurrentSong();
+    var player = document.getElementById("player");
+    player.querySelector("#cover").src = currentSong.getCoverLink();
+    player.querySelector("#title").textContent = currentSong.getTitle();
+    player.querySelector("#artist").textContent = currentSong.getArtist();
+  }
+  window.updateUI = updateUI;
+
+
+  function setupMusicPlayer() {
+    playlist = new Playlist();
+
+    // 专辑 0：添加 song1~song4
+    const song1 = new Song(
+      "Green terrorists",
+      "Luo Da-you",
+      "https://upload.wikimedia.org/wikipedia/zh/f/fa/%E7%BE%8E%E9%BA%97%E5%B3%B6.jpg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/Green%20terrorists.mp3?v=1742063530066"
+    );
+    const song2 = new Song(
+      "Youth Dance Music 2000 (Taiwan version)",
+      "Luo Da-you",
+      "https://i.imgur.com/ASbLWs0.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/2000.mp3?v=1742063560494"
+    );
+    const song3 = new Song(
+      "The Art of War",
+      "David Tao",
+      "https://upload.wikimedia.org/wikipedia/zh/thumb/4/46/The_great_leap.jpg/220px-The_great_leap.jpg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/theArtOfWar.mp3?v=1742064134783"
+    );
+    const song6 = new Song(
+      "Long March",
+      "Luo Da-you",
+      "https://i.imgur.com/ASbLWs0.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E9%95%B7%E5%BE%81.mp3?v=1742066719166"
+    );
+    const song5 = new Song(
+      "Song Of Hero",
+      "Zheng Zhi hua",
+      "https://lineimg.omusic.com.tw/img/album/4138206.jpg?v=20210420191356",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E8%8B%B1%E9%9B%84%E4%B9%8B%E6%AD%8C.mp3?v=1742066449657"
+    );
+    const song4 = new Song(
+      "A Democracy Bumpkin",
+      "Blacklist Studio",
+      "https://i.kfs.io/album/global/57150293,0v1/fit/500x500.jpg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E6%B0%91%E4%B8%BB%E9%98%BF%E8%8D%89.mp3?v=1743192760953"
+    );
+    const song7 = new Song(
+      "Southern Taiwan Together",
+      "Luo Da-you",
+      "https://upload.wikimedia.org/wikipedia/zh/f/fa/%E7%BE%8E%E9%BA%97%E5%B3%B6.jpg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%8D%97%E5%8F%B0%E6%B9%BE%E4%BB%94%E5%85%B1.mp3?v=1742067048685"
+    );
+    // 专辑 1：添加 song8~song14
+    const song8 = new Song(
+      "Happy to Future Rap Young version",
+      "Rap：老夫子(青春版)/謝志偉(活力版)",
+      "https://i.discogs.com/34rDE2suyXF995XVBobUX-OFeceDL5QPgq-lW4bT1bw/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5MjMz/ODY4LTE3MjcxMzA2/OTQtMTMyNS5qcGVn.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/03%20%E6%AD%A1%E5%96%9C%E7%9C%8B%E6%9C%AA%E4%BE%86(RAP%20version%E9%9D%92%E6%98%A5%E7%89%88).mp3?v=1742069130024"
+    );
+    const song9 = new Song(
+      "Taipei New HomeTown",
+      "詞■路寒袖 曲■詹宏達",
+      "https://i.imgur.com/HEaVtqB.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E8%A9%B9%E5%AE%8F%E9%81%94-%E5%8F%B0%E5%8C%97%E6%96%B0%E6%95%85%E9%84%89.mp3"
+    );
+    const song10 = new Song(
+      "Believe Taiwan",
+      "詹宏達",
+      "https://i.imgur.com/tjSXZoK.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/videoplayback.m4a"
+    );
+    const song11 = new Song(
+      "Spring stamens",
+      "作詞：路寒袖 作曲：詹宏達",
+      "https://i.imgur.com/g176BJE.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E6%98%A5%E5%A4%A9%E7%9A%84%E8%8A%B1%E8%95%8A.mp3?v=1742114411127"
+    );
+    const song12 = new Song(
+      "Promise of Century",
+      "主唱：周恆毅　莊佳穎",
+      "https://i.imgur.com/g176BJE.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/06%20%E4%B8%96%E7%B4%80%E4%B9%8B%E7%B4%84.mp3"
+    );
+    const song13 = new Song(
+      "Dreamers are the most beautiful",
+      "詹宏達",
+      "https://i.imgur.com/g176BJE.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E6%9C%89%E5%A4%A2%E6%9C%80%E7%BE%8E.mp3"
+    );
+    const song14 = new Song(
+      "Happiness March",
+      "詹宏達",
+      "https://i.imgur.com/g176BJE.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%B9%B8%E7%A6%8F%E9%80%B2%E8%A1%8C%E6%9B%B2.mp3"
+    );
+    //泛蓝歌曲
+    const song15 = new Song(
+      "Taiwan, it’s great to have you",
+      "葉璦菱,Orange Blue(林正二,周守訓,黃健庭,謝章捷)",
+      "https://i.imgur.com/Y7bdwzI.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%8F%B0%E7%81%A3%E6%9C%89%E4%BD%A0%E7%9C%9F%E5%A5%BD-%E7%B4%94%E6%AD%8C%E6%9B%B2%E7%89%88.mp3?v=1744574051673"
+    );
+    const song16 = new Song(
+      "Ode to the Republic of China",
+      "Liu Chia-chang",
+      "https://i.imgur.com/JHzkYBF.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E9%A0%8COde%20to%20the%20Republic%20of%20China%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E6%84%9B%E5%9C%8B%E6%AD%8C%E6%9B%B2.mp3?v=1745494393753"
+    );
+        const song21 = new Song(
+      "Plum Blossom",
+      "Liu Chia-chang & Teresa Teng",
+      "https://i.imgur.com/XReId9r.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E6%A2%85%E8%8A%B1%20-%20Plum%20Blossom.mp3?v=1747599311853"
+    );
+    const song17 = new Song(
+     "The Earth Thunders",
+      "Lee Chien-Fu",
+      "https://i.imgur.com/RAAbAqO.png",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E6%84%9B%E5%9C%8B%E6%AD%8C%E6%9B%B2%20%E5%A4%A7%E5%9C%B0%E4%B8%80%E8%81%B2%E9%9B%B7.mp3?v=1747597326980"
+    );
+    const song18 = new Song(
+     "Song of Memory of the Founding Father",
+      "黎錦暉 戴傳賢",
+      "https://imgur.com/KfL2aSM.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%9C%8B%E7%88%B6%E7%B4%80%E5%BF%B5%E6%AD%8C%20(1).mp3?v=1747597617713"
+    );
+      const song19 = new Song(
+     "Night Raid",
+      "Huang Ying and Li Jian",
+      "https://imgur.com/N7BTQpS.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%A4%9C%E8%A5%B2%20-%20Night%20Raid.mp3?v=1747597858834"
+    );
+        const song20 = new Song(
+     "True Colors of the Hakka",
+      "Wu Po-hsiung",
+      "https://imgur.com/y18lvso.jpeg",
+      "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%AE%A2%E5%AE%B6%E6%9C%AC%E8%89%B2.mp3?v=1747613612417"
+    );
+
+    //时代流行歌
+  const song22 = new Song(
+  "Love me don't leave",
+  "Chang Chen-yue",
+  "https://i.imgur.com/i6bYSdv.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E6%84%9B%E6%88%91%E5%88%A5%E8%B5%B0.mp3?v=1747599095364"
+);
+
+const song23 = new Song(
+  "Ring Ring Ring",
+  "S.H.E",
+  "https://i.imgur.com/61zA51E.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/Ring%20Ring%20Ring%20S.H.E%20(%E6%AD%8C%E8%AF%8D%E7%89%88).mp3?v=1747600028942"
+);
+
+const song24 = new Song(
+  "In The Name of The Father",
+  "Jay Chou",
+  "https://i.imgur.com/dFJMwCL.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%91%A8%E6%9D%B0%E5%80%AB%E8%91%89%E6%83%A0%E7%BE%8E%E5%B0%88%E8%BC%AF01.%20%E4%BB%A5%E7%88%B6%E4%B9%8B%E5%90%8D%20%5B%E5%8B%95%E6%85%8B%E6%AD%8C%E8%A9%9E%5D.mp3?v=1747599596492"
+);
+
+const song25 = new Song(
+  "Don't wanna grow up",
+  "S.H.E",
+  "https://imgur.com/8Y3vOEN.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E4%B8%8D%E6%83%B3%E9%95%BF%E5%A4%A7%20S.H.E%20(%E6%AD%8C%E8%AF%8D%E7%89%88).mp3?v=1747599948511"
+);
+
+const song26 = new Song(
+  "Ai Qing 36 Ji",
+  "Jolin Tsai",
+  "https://imgur.com/Sc214ec.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E8%94%A1%E4%BE%9D%E6%9E%97%20Jolin%20Tsai%20-%20%E6%84%9B%E6%83%85%E4%B8%89%E5%8D%81%E5%85%AD%E8%A8%88.mp3?v=1747600244089"
+);
+
+const song27 = new Song(
+  "忠孝東路走九遍",
+  "Power Station",
+  "https://upload.wikimedia.org/wikipedia/zh/a/a6/%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E8%B5%B0%E4%B9%9D%E9%81%8D.jpg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%8B%95%E5%8A%9B%E7%81%AB%E8%BB%8A%20Power%20Station%20%5B%20%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E8%B5%B0%E4%B9%9D%E9%81%8D%20%5D%20Official%20Music%20Video.mp3?v=1747600390972"
+);
+
+const song28 = new Song(
+  "The Smile On Your Face",
+  "F.I.R.",
+  "https://i.imgur.com/N4XYd45.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/F.I.R.%E9%A3%9B%E5%85%92%E6%A8%82%E5%9C%98%20-%20%E4%BD%A0%E7%9A%84%E5%BE%AE%E7%AC%91(%E6%AD%8C%E8%A9%9E%E7%89%88).mp3?v=1747600565798"
+);
+//台语
+const song29 = new Song(
+  "Air Alert",
+  "Wu Bai & China Blue",
+  "https://imgur.com/gGT6Y22.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E7%A9%BA%E8%A5%B2%E8%AD%A6%E5%A0%B1.mp3?v=1747600859169"
+);
+const song30 = new Song(
+  "Love Song 1939",
+  "Luo Da-you",
+  "https://i.imgur.com/9C9x88w.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E6%88%80%E6%9B%B21939.mp3?v=1747601016746"
+);
+
+const song31 = new Song(
+  "素蘭小姐要出嫁",
+  "Wu Bai",
+  "https://i.imgur.com/MQbUJmH.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E7%B4%A0%E8%98%AD%E5%B0%8F%E5%A7%90%E8%A6%81%E5%87%BA%E5%AB%81.mp3?v=1747601215834"
+);
+
+const song32 = new Song(
+  "青蚵嫂",
+  "江蕙",
+  "https://i.imgur.com/kighdUp.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E9%9D%92%E8%9A%B5%E5%AB%82.mp3?v=1747601823509"
+);
+
+const song33 = new Song(
+  "台北迎城隍",
+  "Chen Lei",
+  "https://i.imgur.com/BdPzuhn.jpeg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%8F%B0%E5%8C%97%E8%BF%8E%E5%9F%8E%E9%9A%8D.mp3?v=1747602316169"
+);
+
+const song34 = new Song(
+  "再會啊港都",
+  "江蕙",
+  "https://lh3.googleusercontent.com/r9iC9NfZGTD734FteswfoFqq0_NlxW7jiq65-9st7txl4csyRkLbnWFU6_CGFcF3ETeKcsrIciFShhkivg",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%86%8D%E6%9C%83%E5%95%8A%E6%B8%AF%E9%83%BD.mp3?v=1747602516489"
+);
+
+const song35 = new Song(
+  "快樂的出帆",
+  "黃思婷",
+  "https://lh3.googleusercontent.com/i4cbAsqvnBMKYoPimjrgInlQEeOw3JJD4AlNkr5ktcrjywe-Cbj7l1uiOBt0Y_Y-ULGNKxTKAETPBdk",
+  "https://file.garden/Z9XHdyLGHwUEZPS4/%E5%BF%AB%E6%A8%82%E7%9A%84%E5%87%BA%E5%B8%86.mp3?v=1747602827120"
+);
+
+    // 将歌曲添加到对应专辑中
+    playlist.addSong(song1, 0);
+    playlist.addSong(song2, 0);
+    playlist.addSong(song3, 0);
+    playlist.addSong(song6, 0);
+    playlist.addSong(song5, 0);
+    playlist.addSong(song4, 0);
+    playlist.addSong(song7, 0);
+    playlist.addSong(song8, 1);
+    playlist.addSong(song9, 1);
+    playlist.addSong(song10, 1);
+    playlist.addSong(song11, 1);
+    playlist.addSong(song12, 1);
+    playlist.addSong(song13, 1);
+    playlist.addSong(song14, 1);
+    playlist.addSong(song15, 2);
+    playlist.addSong(song16, 2);
+    playlist.addSong(song17, 2);
+    playlist.addSong(song18, 2);
+    playlist.addSong(song19, 2);
+    playlist.addSong(song20, 2);
+     playlist.addSong(song21, 2);
+    playlist.addSong(song22, 3);
+playlist.addSong(song23, 3);
+playlist.addSong(song24, 3);
+playlist.addSong(song25, 3);
+playlist.addSong(song26, 3);
+playlist.addSong(song27, 3);
+playlist.addSong(song28, 3);
+playlist.addSong(song29, 4);
+playlist.addSong(song30, 4);
+playlist.addSong(song31, 4);
+playlist.addSong(song32, 4);
+playlist.addSong(song33, 4);
+playlist.addSong(song34, 4);
+playlist.addSong(song35, 4);
+
+  const playerContainer = document.createElement("div");
+  playerContainer.id = "player";
+
+  const displayBox = document.createElement("div");
+  displayBox.id = "display-box";
+
+  const coverElement = document.createElement("img");
+  coverElement.id = "cover";
+  displayBox.appendChild(coverElement);
+
+  const infoContainer = document.createElement("div");
+  infoContainer.id = "info-container";
+  infoContainer.style.backgroundImage = "url('https://i.imgur.com/xyxCkA0.png')";
+  infoContainer.style.backgroundSize = "cover"; // Optional: adjust based on your needs
+  infoContainer.style.color = "white"; // Set text color to white
+
+  const songInfo = document.createElement("div");
+  songInfo.id = "song-info";
+
+  const titleElement = document.createElement("h3");
+  titleElement.id = "title";
+  titleElement.style.fontWeight = 'normal'; // Make it normal as per previous request
+  songInfo.appendChild(titleElement);
+
+  const artistElement = document.createElement("p");
+  artistElement.id = "artist";
+  songInfo.appendChild(artistElement);
+
+  infoContainer.appendChild(songInfo);
+  displayBox.appendChild(infoContainer);
+
+  playerContainer.appendChild(displayBox);
+
+  const controlsContainer = document.createElement("div");
+  controlsContainer.id = "controls-container";
+
+  const controls = document.createElement("div");
+  controls.id = "controls";
+
+  const prevButton = document.createElement("img");
+  prevButton.id = "prevButton";
+  prevButton.src = "https://i.imgur.com/jdfFCvo.png";
+  prevButton.alt = "Previous";
+  controls.appendChild(prevButton);
+
+  const playPauseButton = document.createElement("img");
+  playPauseButton.id = "playPauseButton";
+  playPauseButton.src = "https://i.imgur.com/7ofdqdY.png"; // Set the default play image
+  playPauseButton.alt = "Play/Pause";
+  controls.appendChild(playPauseButton);
+
+  const nextButton = document.createElement("img");
+  nextButton.id = "nextButton";
+  nextButton.src = "https://i.imgur.com/B0ScI0A.png";
+  nextButton.alt = "Next";
+  controls.appendChild(nextButton);
+
+  const nextalbum = document.createElement("img");
+  nextalbum.id = "nextalbum";
+  nextalbum.src = "https://i.imgur.com/NeUObQA.png";
+  nextalbum.alt = "album";
+  controls.appendChild(nextalbum);
+
+  const loopButton = document.createElement("img"); // 单曲循环按钮
+    loopButton.id = "loopButton";
+    loopButton.src = "https://i.imgur.com/PGcDNau.png"; // 请替换为实际的图标
+    loopButton.alt = "Loop";
+    controls.appendChild(loopButton);
+
+  controlsContainer.appendChild(controls);
+  function updateProgressBar(value) {
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.setProperty('--fill-width', `${value}%`);
+}
+
+// 示例：模拟进度更新
+let progress = 0;
+setInterval(() => {
+    progress += 1;
+    if (progress > 100) progress = 0; // 循环重置
+    updateProgressBar(progress);
+}, 100);
+  playPauseButton.addEventListener("click", function () {
+  const audio = document.getElementById("audio");
+  if (audio.paused) {
+  audio.play();
+  playPauseButton.src = "https://i.imgur.com/7ofdqdY.png"; // Set the pause image
+  } else {
+  audio.pause();
+  playPauseButton.src = "https://i.imgur.com/F5Cd7o6.png"; // Set the play image
+  }
+  });
+
+  nextButton.addEventListener("click", function () {
+  playlist.playNext();
+  updateUI(playlist);
+  const audio = document.getElementById("audio");
+  audio.src = playlist.getCurrentSong().audioLink;
+  audio.play();
+  });
+
+  nextalbum.addEventListener("click", function () {
+    playlist.nextAlbum();
+    updateUI(playlist);
+    const audio = document.getElementById("audio");
+    audio.src = playlist.getCurrentSong().audioLink;
+    audio.play();
+  });
+
+  prevButton.addEventListener("click", function () {
+    playlist.playPrevious();
+    updateUI(playlist);
+    const audio = document.getElementById("audio");
+    audio.src = playlist.getCurrentSong().audioLink;
+    audio.play();
+  });
+  loopButton.addEventListener("click", function () { // 单曲循环按钮事件
+  playlist.loop = !playlist.loop;
+  loopButton.src = playlist.loop ? "https://i.imgur.com/Ssx40A9.png" : "https://i.imgur.com/PGcDNau.png"; // 请替换为实际的图标
+});
+  const progressBarContainer = document.createElement("div");
+  progressBarContainer.id = "progress-bar-container";
+
+
+  const progressBar = document.createElement("input"); // 改为 input type="range"
+  progressBar.type = "range";
+  progressBar.id = "progress-bar";
+  progressBar.value = "0";
+  progressBar.min = "0";
+  progressBar.max = "100";
+  progressBar.step = "0.1";
+
+
+
+  progressBarContainer.appendChild(progressBar);
+  controlsContainer.appendChild(progressBarContainer);
+  playerContainer.appendChild(controlsContainer);
+
+  const volumeContainer = document.createElement("div");
+  volumeContainer.id = "volume-container";
+
+  const volumeLabel = document.createElement("img");
+  volumeLabel.src = "https://i.imgur.com/1iKbM8E.png";
+  volumeLabel.alt = "Volume";
+  volumeContainer.appendChild(volumeLabel);
+
+  const volumeSliderContainer = document.createElement("div");
+  volumeSliderContainer.classList.add("is-vertical");
+  volumeSliderContainer.style.marginLeft = "0%";
+  volumeSliderContainer.style.height = "126px";
+
+  const volumeSlider = document.createElement("input");
+  volumeSlider.type = "range";
+  volumeSlider.id = "volumeSlider";
+  volumeSlider.min = 0;
+  volumeSlider.max = 9;
+  volumeSlider.step = 1;
+  volumeSlider.value = 5; // Initial volume
+
+  volumeSliderContainer.appendChild(volumeSlider);
+
+  const volumeDisplay = document.createElement("span");
+  volumeDisplay.id = "volume-display";
+  volumeDisplay.style.fontWeight = 'bold';
+  volumeDisplay.style.display = 'none';
+  volumeDisplay.textContent = "1";
+
+  volumeContainer.appendChild(volumeSliderContainer);
+  volumeContainer.appendChild(volumeDisplay);
+
+  playerContainer.appendChild(volumeContainer);
+
+  gameWindow_player.insertAdjacentElement("afterend", playerContainer);
+
+
+  function updateProgressBar() {
+    const audio = document.getElementById("audio");
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.value = isNaN(progress) ? 0 : progress;
+  }
+
+
+  progressBar.addEventListener("input", function () { // 拖动进度条事件
+  const audio = document.getElementById("audio");
+  const seekTime = (progressBar.value / 100) * audio.duration;
+  audio.currentTime = isNaN(seekTime) ? 0 : seekTime;
+});
+
+const audio = document.createElement("audio");
+audio.id = "audio";
+audio.src = playlist.getCurrentSong().audioLink;
+audio.volume = 1/9;
+audio.play().catch(err => {
+  if (err.name !== 'AbortError') {
+    console.error('播放失败:', err);
+  }
+  // AbortError 可以安全忽略
+});
+
+
+  audio.addEventListener("timeupdate", updateProgressBar);
+  audio.addEventListener("ended", function () {
+  // Play the next song when the current song ends
+  playlist.playNext();
+  updateUI(playlist);
+  audio.src = playlist.getCurrentSong().audioLink;
+  audio.play();
+  });
+
+  let currentVolume = 5; // Initial volume
+
+  volumeSlider.addEventListener("input", function () {
+  currentVolume = parseInt(volumeSlider.value, 10);
+  updateVolumeDisplay();
+  updateAudioVolume();
+  });
+
+  function updateVolumeDisplay() {
+  volumeDisplay.textContent = currentVolume;
+  }
+
+  function updateAudioVolume() {
+  const audio = document.getElementById("audio");
+  audio.volume = currentVolume / 9; // Set volume between 0 and 1
+  }
+
+  document.body.appendChild(audio);
+  audio.play();
+
+  // Update the UI when the page loads
+  updateUI(playlist);
+  }
+
+  const style = document.createElement("style");
+  style.textContent = `
+  #player {
+  border: 3px solid #C9C9C9; /* Add your desired border style */
+  display: flex;
+  flex-direction: row;
+  height:191px;
+  background-Image: url("https://i.imgur.com/CweYzgR.png");
+  }
+  #volume-container{
+      margin-top:10px
+
+  }
+  #display-box {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  }
+
+  #cover {
+  width: 176px;
+  height:176px;
+  }
+
+  #info-container {
+  display: flex;
+  flex-direction: row;
+  height:178px;
+  width:127px;
+  margin-top: 3px;
+  }
+
+  #song-info {
+  width: 100%;
+  padding:5px;
+  }
+  #state_info {
+    height:auto;
+  }
+  #overall_result_container {
+    height:auto;
+  }
+  #controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  width:100%;
+  padding-top:15px;
+
+  }
+  .is-vertical #volumeSlider {
+      margin-top: 38px;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 15%; /* 音量条的高度 */
+      background: linear-gradient(to bottom, #d4d0c8, #f1f1f1); /* XP 背景 */
+      border-radius: 5px;
+      border: 2px solid #808080;
+      box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.3);
+      transform: rotate(270deg); /* 将音量条旋转90度，实现垂直显示 */
+      transform-origin: center center; /* 保持旋转的中心 */
+  }
+  .is-vertical #volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: green; /* 改为绿色 */
+    border-radius: 50%;
+    border: 2px solid #808080;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.is-vertical #volumeSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: green; /* 改为绿色 */
+    border-radius: 50%;
+    border: 2px solid #808080;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+#overall_vote_statistics {
+
+}
+.final_results_table tbody tr:nth-child(2) td:first-child {
+  background-image: url(https://i.imgur.com/1uBGXls.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+
+#overall_election_details tbody tr:nth-child(2) td:first-child {
+  background-image: url(https://i.imgur.com/1uBGXls.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+#results_container {
+  color: white;
+  overflow: auto;
+}
+  #controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 80%;
+  }
+  .person_image {
+    position: sticky;
+    top: 16px;
+    align-self: flex-start;
+    z-index: 1;
+    float: left;
+    margin: 1.2em 1em 0;
+    border: double;
+    border-color: #C9C9C9;
+    height: 250px;
+}
+
+#progress-bar-container {
+    width: 80%; /* 与原代码一致 */
+    height: 18px; /* 调大高度，从 18px 增加到 24px */
+    background: linear-gradient(to bottom, #d4d0c8, #f1f1f1); /* 原容器背景 */
+    border: 2px solid #808080; /* 原边框 */
+    border-radius: 5px; /* 原圆角 */
+    padding: 2px; /* 移除内边距以消除空隙 */
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2); /* 原阴影 */
+    // box-sizing: border-box; /* 确保边框包含在尺寸内 */
+}
+
+#progress-bar {
+    width: 100%;
+    height: 100%; /* 充满容器高度 */
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent; /* 背景透明，显示容器背景 */
+    border: none; /* 移除边框 */
+    margin: 0; /* 移除边距 */
+    // border-radius: 5px; /* 与容器一致 */
+    overflow: hidden; /* 防止溢出 */
+    display: block; /* 确保占满容器 */
+}
+
+#progress-bar::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%; /* 轨道充满容器 */
+    background: #888; /* 未填充部分的灰色背景 */
+    margin: 0; /* 移除轨道边距 */
+}
+
+#progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0; /* 隐藏滑块 */
+    height: 0; /* 隐藏滑块 */
+    background: transparent; /* 透明背景 */
+    box-shadow: -100vw 0 0 100vw green; /* 绿色填充整个左侧 */
+}
+
+#progress-bar::-moz-range-track {
+    width: 100%;
+    height: 100%; /* 轨道充满容器 */
+    background: #A9A9A9; /* 未填充部分的灰色背景 */
+    border-radius: 5px;
+}
+
+#progress-bar::-moz-range-progress {
+    background: green; /* 填充部分为绿色 */
+    height: 100%; /* 充满轨道高度 */
+    border-radius: 5px;
+}
+
+#progress-bar::-moz-range-thumb {
+    width: 0; /* 隐藏滑块 */
+    height: 0; /* 隐藏滑块 */
+    background: transparent; /* 透明背景 */
+}
+
+#progress-bar::-webkit-slider-thumb,
+#progress-bar::-moz-range-progress {
+    transition: all 0.3s ease; /* 平滑过渡 */
+}
+  `;
+
+
+  document.head.appendChild(style);
+
+  const gameWindow_player = document.getElementById("game_window");
+  //use this function directly or put it in an event listener to start the music on the press of a certain button
+  setupMusicPlayer();
+
+  function createBanner(url, sibling, isLeft) {
+    let div = document.createElement("DIV");
+    let img = document.createElement("IMG");
+    div.style.position = "relative";
+    div.style.margin = "auto";
+    img.src = url;
+
+
+    let x = document.createElement("DIV");
+    x.innerText = "✕";
+    x.style.position = "absolute";
+    x.style.top = "0px";
+    x.style.left = "0px";
+    x.style.padding = "0px 2px";
+    x.style.fontSize = "9px";
+    x.style.fontWeight = "bold";
+    x.style.fontFamily = "Arial, sans-serif";
+    x.style.color = "black";
+    x.style.backgroundColor = "#ccc";
+    x.style.border = "1px solid #666";
+    x.style.cursor = "pointer";
+    x.style.zIndex = "9999";
+    x.style.userSelect = "none";
+    x.style.lineHeight = "12px";
+
+    x.addEventListener("click", function() {
+      div.removeChild(x);
+    });
+
+    div.appendChild(x);
+
+    div.appendChild(img);
+
+    if(isLeft) {
+    sibling.parentNode.insertBefore(div, sibling);
+    }
+    else {
+    sibling.parentNode.appendChild(div);
+    }
+    // x.onclick = () => div.style.visibility = "hidden";
+    // x.onclick = () => img.style.visibility = "hidden";
+    // x.onclick = () => {
+    //   img.remove();      // 直接把 <img> 从文档中删除
+    //   // 或者，如果你还想把它的父容器也删掉：
+    //   // div.remove();
+    // };
+    x.addEventListener("mousedown", function(e) {
+      e.stopPropagation();
+      if (div && div.parentNode) {
+        div.parentNode.removeChild(div);
+      }
+    });
+    return img;
+    }
+
+//侧边广告
+
+let contentBox = document.getElementsByClassName("content_box")[0];
+let contentSingle = document.getElementsByClassName("content_single")[0];
+
+let containerRef = document.getElementsByClassName("container")[0];
+
+function createBanner(url, sibling, isLeft) {
+let div = document.createElement("DIV");
+let img = document.createElement("IMG");
+div.style.position = "relative";
+div.style.margin = "auto";
+img.src = url;
+
+
+let x = document.createElement("DIV");
+x.innerText = "✕";
+x.style.position = "absolute";
+x.style.top = "0px";
+x.style.left = "0px";
+x.style.padding = "0px 2px";
+x.style.fontSize = "9px";
+x.style.fontWeight = "bold";
+x.style.fontFamily = "Arial, sans-serif";
+x.style.color = "black";
+x.style.backgroundColor = "#ccc";
+x.style.border = "1px solid #666";
+x.style.cursor = "pointer";
+x.style.zIndex = "9999";
+x.style.userSelect = "none";
+x.style.lineHeight = "12px";
+
+x.addEventListener("click", function() {
+  div.removeChild(x);
+});
+
+div.appendChild(x);
+
+div.appendChild(img);
+
+if(isLeft) {
+sibling.parentNode.insertBefore(div, sibling);
+}
+else {
+sibling.parentNode.appendChild(div);
+}
+// x.onclick = () => {
+//   img.remove();      // 直接把 <img> 从文档中删除
+//   // 或者，如果你还想把它的父容器也删掉：
+//   // div.remove();
+// };
+
+x.addEventListener("mousedown", function(e) {
+  e.stopPropagation();
+  if (div && div.parentNode) {
+    div.parentNode.removeChild(div);
+  }
+});
+return img;
+}
+
+//抄的，先暂时不用，版面太小而且问题跳来跳去，保留着以后备用
+async function appendStyle() {
+  var metaTag=document.createElement('meta');
+ metaTag.name = "viewport";
+  metaTag.content = "width=device-width, initial-scale=1";
+document.getElementsByTagName('head')[0].appendChild(metaTag);
+
+ if (!document.querySelector('#radio-option-style')) {
+       let style = document.createElement('style');
+     style.type = 'text/css';
+    style.id = 'radio-option-style';
+      style.innerHTML = `
+     .inner_inner_window {
+      display: flex;
+      flex-direction: column;
+   }
+
+    .inner_window_question {
+        height: 337px;
+    }
+    `;
+    document.head.appendChild(style);
+ }
+}
+
+appendStyle();
+
+
+
+function addDynamicCSS() {
+    var css = `
+
+        .inner_window_question h3 .mytooltip{
+            background-color: lightskyblue;
+        }
+        .inner_window_question h3 {
+          background: linear-gradient(to bottom, #f9f9f9, #eff1ff, #e4e4e4);
+        }
+        .mytooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background-color: #d8dee8;
+        }
+
+        .mytooltip .mytooltiptext {
+            width: 240px;
+            background-color: #d8dee8;
+            color: black;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 99;
+            bottom: 20%;
+            left: 20%;
+            margin-left: -90px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid black;
+            pointer-events: none;
+            font-size: 13px !important;
+            line-height: 1.5em !important;
+            font-weight: normal !important;
+            font-style: normal !important;
+        }
+        #results_container {
+          color:white;
+        }
+        #overall_details_container h3 {
+          color: white;
+      }
+      #overall_election_details h4 {
+        color: white;
+    }
+        .mytooltip .mytooltiptext img {
+            max-width: 240px;
+            height: auto;
+        }
+
+        .mytooltip:hover .mytooltiptext {
+            opacity: 1;
+            transition-delay: 0.5s;
+        }
+        .overlay_window img {
+          border-color:black;
+        }
+        #visit_content img {
+          opacity: 0.95;
+          width: 260px;
+          height: auto;
+          border: 1px solid transparent;
+          outline: 1px solid #201F1A;
+          box-shadow: none !important;
+      }
+    `;
+
+    var styleElem = document.createElement('style');
+    styleElem.type = 'text/css';
+
+    styleElem.appendChild(document.createTextNode(css));
+
+    document.head.appendChild(styleElem);
+}
+
+const xpScrollStyle = document.createElement('style');
+xpScrollStyle.textContent = `body *::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background: none;
+  }
+
+  body *::-webkit-scrollbar-thumb, body *::-webkit-scrollbar-button {
+    width: 16px;
+    height: 16px;
+    background: silver;
+    box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px gray;
+    border: 1px solid;
+    border-color: silver #000 #000 silver;
+  }
+
+  body *::-webkit-scrollbar-track {
+    image-rendering: optimizeSpeed;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAyIDIiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CjxtZXRhZGF0YT5NYWRlIHdpdGggUGl4ZWxzIHRvIFN2ZyBodHRwczovL2NvZGVwZW4uaW8vc2hzaGF3L3Blbi9YYnh2Tmo8L21ldGFkYXRhPgo8cGF0aCBzdHJva2U9IiNjMGMwYzAiIGQ9Ik0wIDBoMU0xIDFoMSIgLz4KPC9zdmc+");
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: 2px;
+  }
+
+  body *::-webkit-scrollbar-button {
+    background-repeat: no-repeat;
+    background-size: 16px;
+  }
+
+  body *::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAxNiAxNiIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4KPG1ldGFkYXRhPk1hZGUgd2l0aCBQaXhlbHMgdG8gU3ZnIGh0dHBzOi8vY29kZXBlbi5pby9zaHNoYXcvcGVuL1hieHZOajwvbWV0YWRhdGE+CjxwYXRoIHN0cm9rZT0iIzAwMDAwMCIgZD0iTTcgNWgxTTYgNmgzTTUgN2g1TTQgOGg3IiAvPgo8L3N2Zz4=");
+  }
+
+  body *::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAxNiAxNiIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4KPG1ldGFkYXRhPk1hZGUgd2l0aCBQaXhlbHMgdG8gU3ZnIGh0dHBzOi8vY29kZXBlbi5pby9zaHNoYXcvcGVuL1hieHZOajwvbWV0YWRhdGE+CjxwYXRoIHN0cm9rZT0iIzAwMDAwMCIgZD0iTTQgNWg3TTUgNmg1TTYgN2gzTTcgOGgxIiAvPgo8L3N2Zz4=");
+  }
+
+  body *::-webkit-scrollbar-button:single-button:horizontal:decrement {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAxNiAxNiIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4KPG1ldGFkYXRhPk1hZGUgd2l0aCBQaXhlbHMgdG8gU3ZnIGh0dHBzOi8vY29kZXBlbi5pby9zaHNoYXcvcGVuL1hieHZOajwvbWV0YWRhdGE+CjxwYXRoIHN0cm9rZT0iIzAwMDAwMCIgZD0iTTggM2gxTTcgNGgyTTYgNWgzTTUgNmg0TTYgN2gzTTcgOGgyTTggOWgxIiAvPgo8L3N2Zz4=");
+  }
+
+  body *::-webkit-scrollbar-button:single-button:horizontal:increment {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAxNiAxNiIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4KPG1ldGFkYXRhPk1hZGUgd2l0aCBQaXhlbHMgdG8gU3ZnIGh0dHBzOi8vY29kZXBlbi5pby9zaHNoYXcvcGVuL1hieHZOajwvbWV0YWRhdGE+CjxwYXRoIHN0cm9rZT0iIzAwMDAwMCIgZD0iTTYgM2gxTTYgNGgyTTYgNWgzTTYgNmg0TTYgN2gzTTYgOGgyTTYgOWgxIiAvPgo8L3N2Zz4=");
+  }
+
+  body *::-webkit-scrollbar-corner {
+    background: silver;
+  }`;
+document.head.appendChild(xpScrollStyle);
+const win98BtnStyle = document.createElement('style');
+win98BtnStyle.textContent = `
+ /* 针对所有按钮及 input[type=button|submit|reset] */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  /* 字体和大小 */
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 12px;
+  color: #000;
+
+  /* 背景和边框 */
+  background-color: #C0C0C0;    /* Win98 系统灰 */
+  border: 2px outset #FFF;      /* 外凸边框 */
+
+  /* 内边距 & 大小 */
+  padding: 2px 8px;
+  line-height: 1.2;
+  cursor: pointer;
+
+  /* 去除浏览器默认阴影 */
+  box-shadow: none;
+}
+
+/* 鼠标悬停略微加深以示可点击 */
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background-color: #D4D0C8;
+}
+
+/* 按下时凹陷 */
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
+  border-style: inset;
+  background-color: #C0C0C0;
+}
+
+/* 获得焦点时的虚线框（Win98 风格） */
+button:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus {
+  outline: 1px dotted #000;
+}
+
+/* 可选：禁用状态 */
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled {
+  background-color: #E0E0E0;
+  color: #808080;
+  border: 2px outset #FFF;
+  cursor: default;
+}
+`;
+document.head.appendChild(win98BtnStyle);
+const win98FormStyle = document.createElement('style');
+win98FormStyle.textContent = `/* 通用字体 */
+.windows98-ui {
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 12px;
+  color: #000;
+}
+
+/* —— 下拉框 Select —— */
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+
+  background-color: #C0C0C0;
+  border: 2px outset #FFF;
+  /* 左右内边距，右侧留出给箭头 */
+  padding: 2px 20px 2px 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* 箭头放在更右侧 */
+  background-image:
+    url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='6'><polygon points='0,0 8,0 4,6' fill='%23000'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+}
+
+/* IE 下隐藏自带箭头 */
+select::-ms-expand {
+  display: none;
+}
+
+select:focus {
+  outline: 1px dotted #000;
+}
+select {
+  color:black;
+}
+select:disabled {
+  background-color: #E0E0E0;
+  color: #808080;
+  cursor: default;
+}
+
+/* 如果需要更平整的箭头位置，可微调内边距 */
+select::-ms-expand {
+  display: none;
+}
+
+/* —— 表格 Table —— */
+/* 让所有表格单元格都用 border-box */
+table, th, td {
+  box-sizing: border-box;
+}
+
+/* 整体表框改为 1px groove，不影响宽度 */
+table {
+  border-collapse: collapse;      /* 合并边框 */
+  border: 1px groove #C0C0C0;     /* 从 2px 改为 1px */
+  background-color: #FFF;
+}
+
+/* 交替行和 hover 样式不变 */
+table tr:nth-child(even) td {
+  background-color: #F0F0F0;
+}
+table tr:hover td {
+  background-color: #C0C0C0;
+}`;
+document.head.appendChild(win98FormStyle);
+
+const win98FontStyle = document.createElement('style');
+win98FontStyle.textContent = `
+ /* 全局 Windows 98 系统字体 */
+html, body,
+button, input, select, textarea,
+table, th, td,
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, li {
+  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+}
+#final_results_description h3{
+  font-size: 1em;
+}
+label {
+  font-family: inherit;
+}
+/* 如果需要更像像素字体，可以加上 */
+body {
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+.content_single p{
+  line-height: 1.3em;
+}
+.css-id.css-id{
+  background-color: #ffffff;
+  padding: 24px;
+  border: 4px double #bababa;
+  font-family: 'Times New Roman', serif;
+  color: #273450;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  margin: 1rem auto;
+  max-width: 610px;
+  line-height: 1.6;
+  margin-right: 1em;
+}
+.css-id h3{
+  font-family: 'Times New Roman', serif;
+}
+.css-id p{
+  font-family: 'Times New Roman', serif;
+}
+.css-id h1{
+  font-family: 'Times New Roman', serif;
+}
+.css-id h2{
+  font-family: 'Times New Roman', serif;
+}
+.css-id span{
+  font-family: 'Times New Roman', serif;
+}
+`;
+document.head.appendChild(win98FontStyle);
+
+addDynamicCSS();
 // Global text variables
 e.SelectText = 'Please select the poem you will read:';
 e.CandidText = 'Please select your character:';
 e.VpText = 'Please select the campaign you will run:';
 e.HomeStateText = "Status:";
 e.PartyText = "Role:";
-
-
-  // MUSIC MODE
-  
-  musicMode = () => {
-    // Initialise custom music
-  
-    $("#music_player")[0].children[0].style.display = "none"
-    $("#music_player")[0].children[1].style.display = "none"
-  
-    document.getElementById("modLoadReveal").style.display = "none"
-    document.getElementById("modloaddiv").style.display = "none"
-  
-    musicBox = document.getElementById("music_player")
-    musicBox.style.display = ""
-  
-    var trackSel;
-    e = campaignTrail_temp
-    e.selectedSoundtrack = 0
-  
-    toTime = (seconds) => {
-        var date = new Date(null);
-        date.setSeconds(seconds);
-        return date.toISOString().substr(11, 8);
-    }
-  
-    generateTime = () => {
-        // Get the audio element
-        var audio = document.getElementById("campaigntrailmusic");
-  
-        timeTracker = document.createElement("div");
-        timeTracker.style = `
-  text-align:left;
-  border-style:solid;
-  border-width:3px;
-  height:150px;
-  width:200px;
-  background-color:#999999;
-  float:right;
-  padding: 10px;
-  `
-        $("#trackSelParent")[0].prepend(timeTracker);
-        $("#trackSelParent")[0].prepend(document.createElement("br"));
-  
-        // Create a new element to display the current position of the audio
-        var positionDisplay = document.createElement("gg");
-        positionDisplay.id = "position-display";
-  
-        // Create a new slider element to change the time
-        var timeSlider = document.createElement("input");
-        timeSlider.type = "range";
-        timeSlider.min = 0;
-        timeSlider.max = 1;
-        timeSlider.step = 0.001;
-        timeSlider.value = 0;
-        timeSlider.style.width = "200px";
-        timeSlider.id = "time-slider";
-  
-        var pausePlay = document.createElement("button");
-        pausePlay.id = "position-display";
-        pausePlay.innerHTML = "<b>Pause</b>"
-        pausePlay.style.width = "100%";
-  
-  
-        pausePlay.addEventListener("click", event => {
-            event.preventDefault();
-            updatePositionDisplay();
-            let audio = document.getElementById("campaigntrailmusic");
-            if (audio.paused) {
-                audio.play();
-                event.target.innerHTML = "<b>Pause</b>";
-                return;
-            }
-            audio.pause();
-            event.target.innerHTML = "<b>Play</b>";
-            return;
-        })
-  
-        var volumeLabel = document.createElement("gg");
-        volumeLabel.id = "volume-label";
-        volumeLabel.innerHTML = "<br><b>Volume: </b>"
-  
-        var volumeSlider = document.createElement("input");
-        volumeSlider.type = "range";
-        volumeSlider.min = 0;
-        volumeSlider.max = 1;
-        volumeSlider.step = 0.001;
-        volumeSlider.value = 0;
-        volumeSlider.style.width = "200px";
-        volumeSlider.id = "volume-slider";
-  
-        volumeSlider.value = audio.volume;
-  
-        timeTracker.appendChild(pausePlay);
-        timeTracker.appendChild(document.createElement("br"));
-        timeTracker.appendChild(document.createElement("br"));
-        timeTracker.appendChild(positionDisplay);
-        timeTracker.appendChild(timeSlider);
-        timeTracker.appendChild(volumeLabel);
-        timeTracker.appendChild(volumeSlider);
-  
-        updatePositionDisplay();
-  
-        //for (let i = 0; i < 10; i++)
-        //timeTracker.append(document.createElement("br"));
-  
-  
-        // Function to update the position display
-        function updatePositionDisplay() {
-            positionDisplay.innerHTML = "<b>Time:</b> " + toTime(audio.currentTime) + "<br>";
-            timeSlider.value = audio.duration ? audio.currentTime / audio.duration : 0;
-        }
-  
-        // Function to change the time of the audio
-        function changeTime() {
-            positionDisplay.innerHTML = "<b>Time:</b> " + toTime(audio.currentTime) + "<br>";
-            audio.currentTime = timeSlider.value * audio.duration;
-        }
-  
-        updateVolume = event => {
-            audio.volume = event.target.value;
-        }
-  
-        // Update the position display and slider every second
-        setInterval(updatePositionDisplay, 1000);
-  
-        // Listen for changes to the time slider and change the time of the audio
-        timeSlider.addEventListener("input", changeTime);
-        volumeSlider.addEventListener("input", updateVolume)
-    }
-  
-    function newMusicPlayer() {
-        trackSel = document.createElement("div");
-        trackSel.id = "trackSelParent"
-        let z = `<br><br><br><br><br><br><br><br><br><br><div id='trackSel' style="text-align:left;border-style:solid;border-width:3px;overflow-y: scroll;overflow-x: hidden;height:200px; width:400px;background-color:#999999;float:right;">`
-        z += `<b><select id='selectSoundtrack'><option value='` + soundtracks[e.selectedSoundtrack].name + `'>` + soundtracks[e.selectedSoundtrack].name + "</option>"
-        for (i in soundtracks) {
-            if (soundtracks[e.selectedSoundtrack] != soundtracks[i]) {
-                z += `<option value='` + soundtracks[i].name + `'>` + soundtracks[i].name + `</option>`
-            }
-        }
-        z += `</select></b><br><br>`
-            // <label><input type="radio" name="option" value="option1">Option 1</label><br>
-        for (i in soundtracks[e.selectedSoundtrack].tracklist) {
-            let a = soundtracks[e.selectedSoundtrack].tracklist[i]
-            let b = `<label><input class="trackSelector" type="radio" name="trackSelector" value="` + i + `">` + a.name + `</label><br>`
-            z += b
-        }
-        z += "</div><br><br>"
-        trackSel.innerHTML = z
-  
-        // select correct song
-  
-        musicBox.appendChild(trackSel);
-        Array.from(document.getElementById("trackSel").children).filter(f => {
-            return f.tagName == "LABEL"
-        }).map(f => f.children[0])[0].checked = true
-  
-        // set soundtrack changer
-  
-        soundtrackSelector = document.getElementById("selectSoundtrack")
-        soundtrackSelector.onchange = function() {
-            for (i in soundtracks) {
-                if (soundtracks[i].name == soundtrackSelector.value) {
-                    e.selectedSoundtrack = i
-                    break
-                }
-            }
-            document.getElementById("trackSelParent").remove()
-            newMusicPlayer()
-        }
-  
-        var matches = document.querySelectorAll('.trackSelector');
-  
-        for (match in matches) {
-            matches[match].onchange = function() {
-                audio = $("#campaigntrailmusic")[0];
-                audio.src = soundtracks[e.selectedSoundtrack].tracklist[this.value].url
-                audio.currentTime = 0
-            }
-        }
-  
-        musicBox.children[2].loop = false
-        musicBox.children[2].src = soundtracks[e.selectedSoundtrack].tracklist[0].url
-  
-        musicBox.children[2].onended = function() {
-            console.log("next track")
-            let selected = Number(document.querySelector('input[name="trackSelector"]:checked').value);
-            let newSel = clamp(selected + 1, soundtracks[e.selectedSoundtrack].tracklist.length - 1, 0)
-            let buttons = Array.from(document.getElementById("trackSel").children).filter(f => {
-                    return f.tagName == "LABEL"
-                }).map(f => f.children[0])
-                //let selectedIndex = buttons.map(f=>f.children[0]).map(f=>f.checked)
-            buttons[newSel].click()
-        }
-  
-        for (w = 0; w < 7; w++) {
-            document.getElementById("trackSelParent").appendChild(document.createElement("br"))
-        }
-  
-        generateTime();
-    }
-  
-    clamp = function(a, max, min, overflow = true) {
-        if (overflow) {
-            return a > max ? min : a < min ? max : a;
-        }
-        return a > max ? max : a < min ? min : a;
-    }
-  
-  
-    // Track list
-  
-        var soundtracks = {
-        0: {
-            name: "Intro",
-            tracklist: [
-              {
-              "name": "DDLC Main Theme- Team Salvato",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Othello.mp3"
-            },
-            {
-              "name": "I Thought The Future Would Be Cooler- YACHT",
-              "url": "https://files.catbox.moe/a60mdy.mp3"
-            }
-          ]
-        },
-        1: {
-            name: "Monika",
-            tracklist: [
-              {
-              "name": "Feeling Good- Michael Bublé",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/FeelingGoodmp3"
-            },
-            {
-              "name": "Ain’t No Mountain High Enough- Michael McDonald",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/NoMountainMcDonald.mp3"
-            },
-            {
-              "name": "Human Touch- Elvis Costello",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/HumanTouch.mp3"
-            },
-            {
-              "name": "Lawyers in Love- Jackson Browne",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/LawyersInLove.mp3"
-            },
-            {
-              "name": "Power and Sacrifice- Swans",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Power%20and%20Sacrifice.mp3"
-            },
-            {
-              "name": "Everybody's Got The Right- Stephen Sondheim",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/SpotiDown.App%20-%20Everybody_s%20Got%20the%20Right%20-%20Adam%20Chanler-Berat.mp3"
-            }
-          ]
-        },
-        2: {
-          name: "Sayori",
-          tracklist: [
-            {
-              "name": "Daydream Believer- Anne Murray",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/DaydreamBeliever.mp3"
-            },
-            {
-              "name": "The Wanderer- U2, Johnny Cash",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/TheWanderer.mp3"
-            },
-            {
-              "name": "Crazy- Willie Nelson",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/CrazyWillie.mp3"
-            },
-            {
-              "name": "The Tears of a Clown- The English Beat",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Tears.mp3"
-            },
-            {
-              "name": "Pressure- Billy Joel",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Pressure.mp3"
-            },
-            {
-              "name": "The Crucifixion- Phil Ochs",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/The%20Crucifixion.mp3"
-            }
-        ]
-      },
-      3: {
-        name: "Yuri",
-        tracklist: [
-          {
-            "name": "Heart and Soul- Huey Lewis and the News",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/HeartAndSoul.mp3"
-          },
-          {
-            "name": "Orgonon Gurlz- Neil Ciceireiga",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Orgonon.mp3"
-          },
-          {
-            "name": "Lay All Your Love on Me- ABBA",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Lay%20All%20Your%20Love%20On%20Me.mp3"
-          },
-          {
-            "name": "Puttin' On the Ritz- Taco",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Ritz.mp3"
-          },
-          {
-            "name": "Hurt- Johnny Cash",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Hurt.mp3"
-          },
-          {
-            "name": "Disturbia- Rihanna",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Disturbia.mp3"
-          }
-      ]
-    },
-      4: {
-        name: "Natsuki",
-        tracklist: [
-          {
-            "name": "A Little Less Conversation (JXL Remix)- Elvis Presley",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/A%20Little%20Less%20Conversation.mp3"
-          },
-          {
-            "name": "We're Not Gonna Take It- Twisted Sister",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/We're%20Not%20Gonna%20Take%20It.mp3"
-          },
-          {
-            "name": "I Am America- Krista Branch",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/I%20Am%20America.mp3"
-          },
-          {
-            "name": "American Bad Ass- Kid Rock",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/AmericanBadAss.mp3"
-          },
-          {
-            "name": "Rambozo The Clown- Dead Kennedys",
-            "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Rambozo.mp3"
-          },
-          {
-              "name": "Don't Tread on Me- Metallica",
-              "url": "https://file.garden/Z7qfmQZIZjO_xV5N/Don't%20Tread%20on%20Me.mp3"
-  
-            }
-        ]
-      }            
-    }
-  
-    // Set up new music player
-  
-    newMusicPlayer()
-  }
-
 
 //#endcode
