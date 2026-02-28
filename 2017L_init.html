@@ -4,7 +4,7 @@ campaignTrail_temp.election_json = [
         "pk": 20,
         "fields": {
             "year": 2016,
-            "summary": "<p>Somewhere in the suburbs, there stands a high school. In this school, there is a club. The Literature Club, to be specific. This club is preparing to select its new president.</p><p>The sitting President looks set to cruise to a second term easily, though the other members have ambitions of succeeding her. The upcoming festival and membership policies are the major issues. Then again, though, perhaps 'major' is overstating things. After all, it's just a school club. None of this is really important.</p><p>Right?</p>",
+            "summary": "<p>Somewhere in the suburbs, there stands a high school. In this school, there is a club. The Literature Club, to be specific. This club is preparing to select its new president.</p><p>The sitting President looks set to cruise to a second term easily, though the other members have ambitions of succeeding her. The upcoming festival and membership policies are the major issues. Then again, though, perhaps 'major' is overstating things. After all, it's just a school club. None of this is really <i>that</i> important.</p><p>Right?</p>",
             "image_url": "https://i.imgur.com/YJQ8dg2.png",
             "winning_electoral_vote_number": 270,
             "advisor_url": "https://www.jetsimon.com/public/static/images/bannon-mook-2016.jpg",
@@ -552,7 +552,7 @@ campaignTrail_temp.achievements = {
   function setupMusicPlayer() {
     playlist = new Playlist();
 
-    // 专辑 0：添加 song1~song4
+    // Main soundtrack
     const song1 = new Song(
       "Doki Doki Literature Club!",
       "Dan Salvato",
@@ -595,7 +595,7 @@ campaignTrail_temp.achievements = {
       "https://i.scdn.co/image/ab67616d00001e024ab72db0ceaef31ec1d8d718",
       "https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/And%20i've%20got%20to%20say%2C%20in%20all%20honesty.%20Um...it's%20the%20biggest%20piece%20of%20dogshit%20that%20i%20have%20ever%20heard.mp3"
     );
-    // 专辑 1：添加 song8~song14
+    // Monika
     const song8 = new Song(
       "Merry Go Bye Bye",
       "Mr. Bungle",
@@ -615,10 +615,10 @@ campaignTrail_temp.achievements = {
       "https://file.garden/Z7qfmQZIZjO_xV5N/TheNameOfTheGameIsLightworks.mp3"
     );
     const song11 = new Song(
-      "Lovefool",
-      "The Cardigans",
-      "https://i.scdn.co/image/ab67616d00001e020aac8ca880151fda470e91af",
-      "https://audio.jukehost.co.uk/YkqfqkyLq3JBxf3eS62po5jxXGUCWGTe"
+      "Power and Sacrifice",
+      "Swans",
+      "https://i.imgur.com/8ZxDXfD.jpeg",
+      "https://file.garden/Z7qfmQZIZjO_xV5N/Power%20and%20Sacrifice.mp3"
     );
     const song12 = new Song(
       "Cannibals",
@@ -638,7 +638,7 @@ campaignTrail_temp.achievements = {
       "https://i.scdn.co/image/ab67616d0000b273f8bd876cdda0e7a825bb9afb",
       "https://file.garden/Z7qfmQZIZjO_xV5N/Unbirthday.mp3"
     );
-    //泛蓝歌曲
+    //MC
     const song15 = new Song(
       "Mambo No. 5",
       "Lou Bega",
@@ -651,38 +651,38 @@ campaignTrail_temp.achievements = {
       "https://i.scdn.co/image/ab67616d0000b273c814b6fa04b61759289cf215",
       "https://file.garden/Z7qfmQZIZjO_xV5N/Steam.mp3"
     );
-        const song21 = new Song(
+        const song17 = new Song(
       "Come On, Come On",
       "Smash Mouth",
       "https://i.scdn.co/image/ab67616d0000b2734f3bbf9631faeb8de9912a23",
       "https://file.garden/Z7qfmQZIZjO_xV5N/Come%20On%2C%20Come%20On.mp3"
     );
-    const song17 = new Song(
+    const song18 = new Song(
      "Get Ready",
       "The Proclaimers",
       "https://m.media-amazon.com/images/I/71RREGIIXOL._UF1000,1000_QL80_.jpg",
       "https://file.garden/Z7qfmQZIZjO_xV5N/GetReady.mp3"
     );
-    const song18 = new Song(
+    const song19 = new Song(
      "Livin' La Vida Loca",
       "Ricky Martin",
       "https://i.scdn.co/image/ab67616d0000b273e7e9b85cc1f021ec12130d80",
       "https://file.garden/ZRcfmLUQNGkxIJds/Ricky%20Martin%20-%20Livin'%20La%20Vida%20Loca%20(Audio).mp3"
     );
-      const song19 = new Song(
+      const song20 = new Song(
      "Charmless Man",
       "Blur",
       "https://vinyla.com/files/products/07/108/69996/vinilovi-plativki-blur-the-great-escape-limited-edition.800x800.png?adc2882e380031ce4e9cfa75a3c22526",
       "https://audio.jukehost.co.uk/1VgYjwBbQD2MkJIYKwETEt4BZGZ4piJY"
     );
-        const song20 = new Song(
+        const song21 = new Song(
      "Graduation (Friends Forever)",
       "Vitamin C",
       "https://i.scdn.co/image/ab67616d0000b27316354c666df6afbd41862adf",
       "https://file.garden/Z7qfmQZIZjO_xV5N/Graduation.mp3"
     );
 
-    //时代流行歌
+    //Sayori
   const song22 = new Song(
   "I Can See Clearly Now",
   "Johnny Nash",
@@ -730,9 +730,10 @@ const song28 = new Song(
   "Three Dog Night",
   "https://i.scdn.co/image/ab67616d0000b27374389cc22da6e1178b88b4dc",
   "https://file.garden/Z7qfmQZIZjO_xV5N/An%20Old%20Fashioned%20Love%20Song.mp3"
-);
-//台语
-const song29 = new Song(
+    );
+
+    //Yuri
+  const song29 = new Song(
   "Second Movement: Largo",
   "Antonin Dvorak",
   "https://i.scdn.co/image/ab67616d00001e023a819b3c405bf9c2b44ec8da",
@@ -779,6 +780,54 @@ const song35 = new Song(
   "https://i.scdn.co/image/ab67616d0000b2735e3b4ea97a73a17ef96e46c4",
   "https://file.garden/Z7qfmQZIZjO_xV5N/Pagliacci.mp3"
 );
+//Natsuki
+const song36 = new Song(
+  "Nightmare",
+  "Avenged Sevenfold",
+  "https://i.scdn.co/image/ab67616d0000b273c34064a3c5e4a25892a091f3",
+  "https://file.garden/Z7qfmQZIZjO_xV5N/Nightmare.mp3"
+);
+const song37 = new Song(
+  "Freedom",
+  "Rage Against the Machine",
+  "https://i.imgur.com/1NSIqdt.jpeg",
+  "https://files.catbox.moe/m638be.mp3"
+);
+
+const song38 = new Song(
+  "Break Stuff",
+  "Limp Bizkit",
+  "https://i.scdn.co/image/ab67616d0000b273825ae6700003f760e79a8c94",
+  "https://file.garden/Z7qfmQZIZjO_xV5N/BreakStuff.mp3"
+);
+
+const song39 = new Song(
+  "Lessons in What Not to Become",
+  "Jello Biafra",
+  "https://i.scdn.co/image/ab67616d0000b2732e1b993ecf7ff3e6f4d0d19b",
+  "https://file.garden/Z7qfmQZIZjO_xV5N/Lessons%20in%20What%20Not%20to%20Become.mp3"
+);
+
+const song40 = new Song(
+  "Ænema",
+  "TOOL",
+  "https://i.scdn.co/image/ab67616d00001e0247daa44983fa6079910ed295",
+  "https://file.garden/Z7qfmQZIZjO_xV5N/%C3%86nema.mp3"
+);
+
+const song41 = new Song(
+  "This Fire",
+  "Franz Ferdinand",
+  "https://i.scdn.co/image/ab67616d00001e02a5d1c06a8172d4861367953c",
+  "https://audio.jukehost.co.uk/AEiOGQVwk5Js2S84uvhxDKo9OiWzUARe"
+);
+
+const song42 = new Song(
+  "Vesti la giubba",
+  "Ruggero Leoncavallo",
+  "https://i.scdn.co/image/ab67616d0000b2735e3b4ea97a73a17ef96e46c4",
+  "https://file.garden/Z7qfmQZIZjO_xV5N/Pagliacci.mp3"
+);
 
     // 将歌曲添加到对应专辑中
     playlist.addSong(song1, 0);
@@ -816,6 +865,13 @@ playlist.addSong(song32, 4);
 playlist.addSong(song33, 4);
 playlist.addSong(song34, 4);
 playlist.addSong(song35, 4);
+playlist.addSong(song36, 5);
+playlist.addSong(song37, 5);
+playlist.addSong(song38, 5);
+playlist.addSong(song39, 5);
+playlist.addSong(song40, 5);
+playlist.addSong(song41, 5);
+playlist.addSong(song42, 5);
 
   const playerContainer = document.createElement("div");
   playerContainer.id = "player";
