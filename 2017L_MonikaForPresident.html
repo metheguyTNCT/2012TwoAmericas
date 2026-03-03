@@ -9782,5 +9782,134 @@ campaignTrail_temp.jet_data = [{
     "cyoa_answer_swaps": {},
     "player_candidate": null
 }
+    
+// Separate from the tooltips, this is just the hover tooltips when
+// checking the map. Taken from TTNW and rewritten for this mod.
+class ChartEnhancer {
+  constructor() {
+    this.isProcessing = false;
+    this.initializeStyles();
+    this.initializeReplacements();
+    this.init();
+  }
+
+  initializeStyles() {
+    if (document.getElementById('ce-tooltip-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'ce-tooltip-styles';
+    
+    style.textContent = `
+      .ce-tooltip-container {
+        position: relative;
+        cursor: help;
+        display: inline-block;
+        opacity: 1;
+        transition-delay: 0.5s;
+        border-bottom: 1px dotted blue;
+      }
+	  
+	  .ce-tooltip {
+		visibility: hidden;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease, visibility 0s 0.3s;
+		
+		position: absolute;
+		top: 50%;
+		right: 100%;
+		transform: translateY(-50%);
+		margin-right: 10px;
+		z-index: 1;
+
+		background-color: #333;
+		color: #fff;
+		font-family: Segoe UI, sans-serif !important;
+		padding: 10px;
+		border-radius: 6px;
+		box-sizing: border-box;
+
+		width: 200px;
+		text-align: center;
+		
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+	}
+      
+      .ce-tooltip-container:hover .ce-tooltip {
+        /* Make visible on hover */
+        visibility: visible;
+        opacity: 1;
+
+        /* Hover-specific styles */
+        pointer-events: auto;
+        transition-delay: 0s;
+        background-color: #ffbde1;
+        background-image: url("https://i.imgur.com/KNTznwN.png");
+        background-size: cover;
+        font-family: Segoe UI, sans-serif !important;
+        font-style: normal !important;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+	  
+	  .ce-tooltip img {
+		display: block;
+		max-width: 85%;
+		height: auto;
+		margin: 0;
+	}
+    	  
+    `;
+    document.head.appendChild(style);
+  }
+
+  createTooltip(text, { img, title, name, desc }) {
+    const imgHtml = img ? `<img src="${img}" alt="${name || text}">` : '';
+    const titleHtml = title ? `${title}<br>` : '';
+    const nameHtml = name ? `<b>${name}</b><br>` : '';
+    const descHtml = desc ? `${desc}` : '';
+    
+    return `<span class="ce-tooltip-container">${text}<span class="ce-tooltip">` +
+           `${imgHtml}` +
+           `${titleHtml}${nameHtml}${descHtml}` +
+           `</span></span>`;
+  }
+
+  initializeReplacements() {
+    this.replacements = new Map([
+      ["Monika", this.createTooltip("Monika", {
+        img: "https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/chibika.webp",
+        title: "Woman of Destiny",
+        name: "Monika.chr",
+        desc: "Moi."
+      })],      
+      ["Protagonist", this.createTooltip("Protagonist", {
+        img: "https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/mchibi.webp",
+        title: "Boy Toy",
+        name: "Ive Laster",
+        desc: "There are no strings on me."
+      })],      
+      ["Sayori", this.createTooltip("Sayori", {
+        img: "https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/chibiyori.webp",
+        title: "Sexy Lamp",
+        name: "Sayori.chr",
+        desc: "Bye-bye."
+      })],      
+      ["Yuri", this.createTooltip("Yuri", {
+        img: "https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/chiburi.webp",
+        title: "Bottled Spider",
+        name: "Yuri.chr",
+        desc: "So long."
+      })],      
+      ["Natsuki", this.createTooltip("Natsuki", {
+        img: "https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/chibisuki.webp",
+        title: "Rebel Without a Clue",
+        name: "Natsuki.chr",
+        desc: "Nice knowing ya."
+      })]
+    ]);
+  }    
 ]
 
