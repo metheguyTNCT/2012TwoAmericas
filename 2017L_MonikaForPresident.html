@@ -1,119 +1,4 @@
-
-campaignTrail_temp.cyoa = true;
-
-// pk -> index lookup for questions
-let _questionIdxByPk = null;
-
-function _rebuildQuestionIdxMap() {
-  _questionIdxByPk = new Map();
-  const arr = campaignTrail_temp.questions_json;
-  for (let i = 0; i < arr.length; i++) {
-    _questionIdxByPk.set(Number(arr[i].pk), i);
-  }
-}
-
-// returns the true array index (>= 0) or -1 if not found
-function getQuestionIndexFromPk(pk) {
-  const n = Number(pk);
-  if (!_questionIdxByPk) _rebuildQuestionIdxMap();
-
-  let idx = _questionIdxByPk.get(n);
-  // if map is stale, rebuild once
-  if (idx == null || campaignTrail_temp.questions_json[idx]?.pk !== n) {
-    _rebuildQuestionIdxMap();
-    idx = _questionIdxByPk.get(n);
-  }
-  return idx ?? -1;
-}
-
-// index to assign into question_number before nextQuestion()
-function getJumpIndexFromPk(pk) {
-  const idx = getQuestionIndexFromPk(pk);
-  return idx >= 0 ? idx - 1 : -1;
-}
-
-// for backwards compatibility
-function getQuestionNumberFromPk(pk) {
-  return getJumpIndexFromPk(pk);
-}
-
-function questionSwapper(pk1, pk2) {
-    const questionData = campaignTrail_temp.questions_json;
-    
-    // find indices of the questions
-    const index1 = getQuestionIndexFromPk(pk1);
-    const index2 = getQuestionIndexFromPk(pk2);
-    
-    // validate both questions exist
-    if (index1 === -1 || index2 === -1) {
-        console.warn(`questionSwapper: Could not find question(s) with pk ${pk1} and/or ${pk2}`);
-        return false;
-    }
-    
-    // swap the entire question objects
-    [questionData[index1], questionData[index2]] = [questionData[index2], questionData[index1]];
-    
-    // rebuild the index map since positions changed
-    _rebuildQuestionIdxMap();
-    
-    return true;
-}
-
-function answerSwapper(pk1, pk2, takeEffects = true) {
-    const answerData = campaignTrail_temp.answers_json;
-
-   // find the indices of the objects with the specified PKs
-    const index1 = answerData.findIndex(item => Number(item.pk) === Number(pk1));
-    const index2 = answerData.findIndex(item => Number(item.pk) === Number(pk2));
-
-    // check if objects with those PKs exist
-    if (index1 === -1 || index2 === -1) return;
-
-    // swap the question assignment
-    const tempQuestion = answerData[index1].fields.question;
-    answerData[index1].fields.question = answerData[index2].fields.question;
-    answerData[index2].fields.question = tempQuestion;
-
-    // if takeEffects is true, answers swap effects also
-    if (takeEffects) {
-        const otherJsons = [
-            campaignTrail_temp.answer_score_global_json,
-            campaignTrail_temp.answer_score_issue_json,
-            campaignTrail_temp.answer_score_state_json,
-            campaignTrail_temp.answer_feedback_json
-        ];
-
-        otherJsons.forEach(jsonData => {
-            if (!jsonData) return;
-            jsonData.forEach(item => {
-                const itemAns = Number(item.fields.answer);
-                if (itemAns === Number(pk1)) {
-                    item.fields.answer = pk2;
-                } else if (itemAns === Number(pk2)) {
-                    item.fields.answer = pk1;
-                }
-            });
-        });
-    }
-}
-
-// CYOA Variables
-var suspicion = 0;
-var scruples = 0;
-var power = 1;
-var mcrep = 2;
-
-cyoAdventure = function (a) {
-    const ans = campaignTrail_temp.player_answers[campaignTrail_temp.player_answers.length - 1];
-
-    // +1 scruples
-    if (ans == 5001) {
-        scruples += 1;
-    }
-}
-    
 campaignTrail_temp.election_json[0].fields.advisor_url="https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/NonWackyAdvisor.png"
-    
 
 campaignTrail_temp.questions_json = [
     {
@@ -280,7 +165,7 @@ campaignTrail_temp.questions_json = [
         "pk": 1034,
         "fields": {
             "priority": -3,
-            "description": "A leaked transcript from Wikileaks shows Hillary Clinton saying in a closed-door speech at Goldman Sachs that she is \"center-left, center-right\" and that she supports \"open trade and open borders\". How do you respond?"
+            "description": "Sayori is dead as hell"
         }
     },
     {
@@ -835,31 +720,7 @@ campaignTrail_temp.answers_json = [
         "pk": 5114,
         "fields": {
             "question": 1034,
-            "description": "As usual, Hillary has been caught telling lies. For all we know, this is just the beginning. Do we really want a President, and then a month after they're elected we find out they're being blackmailed by Russia or China?"
-        }
-    },
-    {
-        "model": "campaign_trail.answer",
-        "pk": 5115,
-        "fields": {
-            "question": 1034,
-            "description": "No wonder she was working so hard to cheat Bernie Sanders out of the nomination. She's the Goldman Sachs candidate, folks, plain and simple."
-        }
-    },
-    {
-        "model": "campaign_trail.answer",
-        "pk": 5116,
-        "fields": {
-            "question": 1034,
-            "description": "If it's really true that Russia collaborated to release this information about Hillary Clinton's private speeches to Goldman Sachs, then I totally disavow and denounce these illegal leaks."
-        }
-    },
-    {
-        "model": "campaign_trail.answer",
-        "pk": 5117,
-        "fields": {
-            "question": 1034,
-            "description": "They keep saying \"Russia Russia Russia\". I've heard other people say this was an inside job from a DNC whistleblower. You know, the guy that assassinated or something like that. Strange!"
+            "description": " She just died?  Wow.  I didn’t know that.  I just — you’re telling me now for the first time. She led an amazing life.  What else can you say?  She was an amazing woman.  Whether you agree or not, she was an amazing woman who led an amazing life.  "
         }
     },
     {
@@ -1636,7 +1497,7 @@ campaignTrail_temp.issues_json = [
             "stance_1": "Fuck You, It's Not Literature",
             "stance_desc_1": "Grow up, you little bitch.",
             "stance_2": "Not Literature",
-            "stance_desc_2": "'",
+            "stance_desc_2": "It is not.",
             "stance_3": "Not Literature",
             "stance_desc_3": "I suppose it isn't. I mean, it has more pictures than words, right?",
             "stance_4": "Who Cares?",
@@ -1723,21 +1584,21 @@ campaignTrail_temp.issues_json = [
         "model": "campaign_trail.issue",
         "pk": 104,
         "fields": {
-            "name": "Immigration",
-            "description": "'",
-            "stance_1": "Very Conservative",
-            "stance_desc_1": "'",
-            "stance_2": "Conservative",
-            "stance_desc_2": "'",
-            "stance_3": "Leans Conservative",
-            "stance_desc_3": "'",
-            "stance_4": "Moderate",
-            "stance_desc_4": "'",
-            "stance_5": "Leans Liberal",
-            "stance_desc_5": "'",
-            "stance_6": "Liberal",
-            "stance_desc_6": "'",
-            "stance_7": "Very Liberal",
+            "name": "Membership",
+            "description": "Should the club accept new members or not? No, we're not going to use this as an analogy to the real-life immigration debate. Why would we ever do that? Ahem. Uh. Definitely not.",
+            "stance_1": "Very Exclusionary",
+            "stance_desc_1": "THEY'RE TAKIN' ARR JABS!",
+            "stance_2": "Exclusionary",
+            "stance_desc_2": "More people will just complicate things. We're just fine where we are.",
+            "stance_3": "Hesitant",
+            "stance_desc_3": "Oh, gosh. I don't know. New members? At a time like this? Is that really necessary? ",
+            "stance_4": "Indifferent",
+            "stance_desc_4": "",
+            "stance_5": "Leans Accepting",
+            "stance_desc_5": "If someone wants to join, who am I to stop them?",
+            "stance_6": "Accepting",
+            "stance_desc_6": "Of course! There are only five of us right now, we need anyone we can get.",
+            "stance_7": "Roll Out the Red Carpet",
             "stance_desc_7": "'",
             "election": 20
         }
@@ -4340,7 +4201,7 @@ campaignTrail_temp.candidate_issue_score_json = [
         "fields": {
             "candidate": 200,
             "issue": 104,
-            "issue_score": -0.6
+            "issue_score": 0.69
         }
     },
     {
@@ -4385,7 +4246,7 @@ campaignTrail_temp.candidate_issue_score_json = [
         "fields": {
             "candidate": 201,
             "issue": 104,
-            "issue_score": 0.55
+            "issue_score": 0.2
         }
     },
     {
@@ -4430,7 +4291,7 @@ campaignTrail_temp.candidate_issue_score_json = [
         "fields": {
             "candidate": 202,
             "issue": 104,
-            "issue_score": 0.7
+            "issue_score": 0.45
         }
     },
     {
@@ -4475,7 +4336,7 @@ campaignTrail_temp.candidate_issue_score_json = [
         "fields": {
             "candidate": 203,
             "issue": 104,
-            "issue_score": 0.7
+            "issue_score": 0.19
         }
     },
     {
@@ -4520,7 +4381,7 @@ campaignTrail_temp.candidate_issue_score_json = [
         "fields": {
             "candidate": 50000,
             "issue": 104,
-            "issue_score": 0
+            "issue_score": -0.72
         }
     }
 ];
@@ -7438,38 +7299,8 @@ campaignTrail_temp.answer_score_global_json = [
         "fields": {
             "answer": 5114,
             "candidate": 200,
-            "affected_candidate": 201,
-            "global_multiplier": -0.02
-        }
-    },
-    {
-        "model": "campaign_trail.answer_score_global",
-        "pk": 3124,
-        "fields": {
-            "answer": 5115,
-            "candidate": 200,
-            "affected_candidate": 201,
-            "global_multiplier": -0.02
-        }
-    },
-    {
-        "model": "campaign_trail.answer_score_global",
-        "pk": 3125,
-        "fields": {
-            "answer": 5116,
-            "candidate": 200,
-            "affected_candidate": 201,
-            "global_multiplier": -0.015
-        }
-    },
-    {
-        "model": "campaign_trail.answer_score_global",
-        "pk": 3126,
-        "fields": {
-            "answer": 5117,
-            "candidate": 200,
-            "affected_candidate": 201,
-            "global_multiplier": -0.0125
+            "affected_candidate": 200,
+            "global_multiplier": 0.02
         }
     },
     {
@@ -7628,18 +7459,8 @@ campaignTrail_temp.answer_score_global_json = [
         "fields": {
             "answer": 5114,
             "candidate": 200,
-            "affected_candidate": 203,
-            "global_multiplier": 0.015
-        }
-    },
-    {
-        "model": "campaign_trail.answer_score_global",
-        "pk": 3198,
-        "fields": {
-            "answer": 5115,
-            "candidate": 200,
-            "affected_candidate": 203,
-            "global_multiplier": 0.02
+            "affected_candidate": 202,
+            "global_multiplier": -50
         }
     },
     {
@@ -8362,16 +8183,6 @@ campaignTrail_temp.answer_score_issue_json = [
             "answer": 5102,
             "issue": 100,
             "issue_score": -0.575,
-            "issue_importance": 1
-        }
-    },
-    {
-        "model": "campaign_trail.answer_score_issue",
-        "pk": 2621,
-        "fields": {
-            "answer": 5116,
-            "issue": 102,
-            "issue_score": -0.5,
             "issue_importance": 1
         }
     },
@@ -9573,34 +9384,7 @@ campaignTrail_temp.answer_feedback_json = [
         "fields": {
             "answer": 5114,
             "candidate": 200,
-            "answer_feedback": "This is a good opening to attack Hillary Clinton after some of the recent mayhem."
-        }
-    },
-    {
-        "model": "campaign_trail.answer_feedback",
-        "pk": 2599,
-        "fields": {
-            "answer": 5115,
-            "candidate": 200,
-            "answer_feedback": "Keep pressing your outsider credentials and tying Hillary to Goldman Sachs, Saudi Arabia, and so on."
-        }
-    },
-    {
-        "model": "campaign_trail.answer_feedback",
-        "pk": 2600,
-        "fields": {
-            "answer": 5116,
-            "candidate": 200,
-            "answer_feedback": "Advisors definitely feel that, while your motives are admirable, you are leaving an opportunity on the table."
-        }
-    },
-    {
-        "model": "campaign_trail.answer_feedback",
-        "pk": 2601,
-        "fields": {
-            "answer": 5117,
-            "candidate": 200,
-            "answer_feedback": "Your complaint about Russia Russia seems a little unprompted based on what has happened thus far. Is there something else?"
+            "answer_feedback": "I’m actually saddened to hear that.  I am saddened to hear that. Thank you very much.\n\n"
         }
     },
     {
@@ -9721,6 +9505,131 @@ campaignTrail_temp.running_mate_last_name = "Monika!";
 
 
 //#startcode
+campaignTrail_temp.cyoa = true;
+
+// pk -> index lookup for questions
+let _questionIdxByPk = null;
+
+function _rebuildQuestionIdxMap() {
+  _questionIdxByPk = new Map();
+  const arr = campaignTrail_temp.questions_json;
+  for (let i = 0; i < arr.length; i++) {
+    _questionIdxByPk.set(Number(arr[i].pk), i);
+  }
+}
+
+// returns the true array index (>= 0) or -1 if not found
+function getQuestionIndexFromPk(pk) {
+  const n = Number(pk);
+  if (!_questionIdxByPk) _rebuildQuestionIdxMap();
+
+  let idx = _questionIdxByPk.get(n);
+  // if map is stale, rebuild once
+  if (idx == null || campaignTrail_temp.questions_json[idx]?.pk !== n) {
+    _rebuildQuestionIdxMap();
+    idx = _questionIdxByPk.get(n);
+  }
+  return idx ?? -1;
+}
+
+// index to assign into question_number before nextQuestion()
+function getJumpIndexFromPk(pk) {
+  const idx = getQuestionIndexFromPk(pk);
+  return idx >= 0 ? idx - 1 : -1;
+}
+
+// for backwards compatibility
+function getQuestionNumberFromPk(pk) {
+  return getJumpIndexFromPk(pk);
+}
+
+function questionSwapper(pk1, pk2) {
+    const questionData = campaignTrail_temp.questions_json;
+    
+    // find indices of the questions
+    const index1 = getQuestionIndexFromPk(pk1);
+    const index2 = getQuestionIndexFromPk(pk2);
+    
+    // validate both questions exist
+    if (index1 === -1 || index2 === -1) {
+        console.warn(`questionSwapper: Could not find question(s) with pk ${pk1} and/or ${pk2}`);
+        return false;
+    }
+    
+    // swap the entire question objects
+    [questionData[index1], questionData[index2]] = [questionData[index2], questionData[index1]];
+    
+    // rebuild the index map since positions changed
+    _rebuildQuestionIdxMap();
+    
+    return true;
+}
+
+function answerSwapper(pk1, pk2, takeEffects = true) {
+    const answerData = campaignTrail_temp.answers_json;
+
+   // find the indices of the objects with the specified PKs
+    const index1 = answerData.findIndex(item => Number(item.pk) === Number(pk1));
+    const index2 = answerData.findIndex(item => Number(item.pk) === Number(pk2));
+
+    // check if objects with those PKs exist
+    if (index1 === -1 || index2 === -1) return;
+
+    // swap the question assignment
+    const tempQuestion = answerData[index1].fields.question;
+    answerData[index1].fields.question = answerData[index2].fields.question;
+    answerData[index2].fields.question = tempQuestion;
+
+    // if takeEffects is true, answers swap effects also
+    if (takeEffects) {
+        const otherJsons = [
+            campaignTrail_temp.answer_score_global_json,
+            campaignTrail_temp.answer_score_issue_json,
+            campaignTrail_temp.answer_score_state_json,
+            campaignTrail_temp.answer_feedback_json
+        ];
+
+        otherJsons.forEach(jsonData => {
+            if (!jsonData) return;
+            jsonData.forEach(item => {
+                const itemAns = Number(item.fields.answer);
+                if (itemAns === Number(pk1)) {
+                    item.fields.answer = pk2;
+                } else if (itemAns === Number(pk2)) {
+                    item.fields.answer = pk1;
+                }
+            });
+        });
+    }
+}
+
+// CYOA Variables
+var suspicion = 0;
+var scruples = 0;
+var power = 1;
+var mcrep = 2;
+
+cyoAdventure = function (a) {
+    const ans = campaignTrail_temp.player_answers[campaignTrail_temp.player_answers.length - 1];
+
+    // +1 scruples
+    if (ans == 5001) {
+        scruples += 1;
+    }
+}
+
+;
+
+;
+
+;
+
+;
+
+;
+
+;
+
 campaignTrail_temp.candidate_image_url = 'https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/TheEmpress.png';
 campaignTrail_temp.running_mate_image_url = 'https://file.garden/Z7qfmQZIZjO_xV5N/embarrasment/CREEP.png';
 campaignTrail_temp.candidate_last_name = 'Re-Elect';
@@ -9756,11 +9665,6 @@ campaignTrail_temp.jet_data = [{
             "name": "scruples",
             "defaultValue": 0
         },
-        "1772152839630": {
-            "id": 1772152839630,
-            "name": "power",
-            "defaultValue": 1
-        },
         "1772152842934": {
             "id": 1772152842934,
             "name": "mcrep",
@@ -9768,7 +9672,13 @@ campaignTrail_temp.jet_data = [{
         }
     },
     "cyoa_enabled": true,
-    "cyoa_data": {},
+    "cyoa_data": {
+        "1772935398230": {
+            "answer": 5000,
+            "question": 1037,
+            "id": 1772935398230
+        }
+    },
     "cyoa_variable_effects": {
         "20664": {
             "id": 20664,
@@ -9776,14 +9686,36 @@ campaignTrail_temp.jet_data = [{
             "variable": "scruples",
             "operation": "add",
             "amount": 1
+        },
+        "50003": {
+            "id": 50003,
+            "answer": 5114,
+            "variable": "scruples",
+            "operation": "add",
+            "amount": 2
+        },
+        "50004": {
+            "id": 50004,
+            "answer": 5114,
+            "variable": "suspicion",
+            "operation": "add",
+            "amount": 1
+        },
+        "50005": {
+            "id": 50005,
+            "answer": 5114,
+            "variable": "mcrep",
+            "operation": "add",
+            "amount": 1
         }
     },
     "cyoa_question_swaps": {},
     "cyoa_answer_swaps": {},
-    "player_candidate": null
+    "player_candidate": null,
+    "mapping_enabled": false
 }
-    
-// Separate from the tooltips, this is just the hover tooltips when
+
+	  // Separate from the tooltips, this is just the hover tooltips when
 // checking the map. Taken from TTNW and rewritten for this mod.
 class ChartEnhancer {
   constructor() {
@@ -9912,4 +9844,3 @@ class ChartEnhancer {
     ]);
   }    
 ]
-
