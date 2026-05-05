@@ -53,7 +53,7 @@ campaignTrail_temp.candidate_json = [
             "party": "Club Member?",
             "state": "Carrying On",
             "priority": 2,
-            "description": "<p>You? You're just a normal high schooler, you know? You're not even in a club. You don't really have your life figured out yet, but who does at your age? Mostly, you keep to yourself. You don't really go to parties, dates, any of that.</p><p>You don't really have many friends, now that you think about it. Sure, there's Sayori. You and her have been tight since you were kids. But you've been growing apart recently. She tells you you ought to go out more before you become a NEET of some sort. Maybe she's right? Probably. At any rate, you're doing just fine, as far as you're concerned. Life has been good to you. You can't imagine it changing any time soon.</p>",
+            "description": "<p>You? You're just a normal high schooler, you know? You're not even in a club. You don't really have your life figured out yet, but who does at your age? Mostly, you keep to yourself. You don't really go to parties, dates, any of that.</p><p>You don't really have many friends, now that you think about it. Sure, there's Sayori. You and her have been tight since you were kids. But you've been growing apart recently. It's just the natural process of time, you know? She tells you you ought to get out more before you become a NEET of some sort. Maybe she's right? Probably. At any rate, you're doing just fine, as far as you're concerned. Life has been good to you. You can't imagine it changing any time soon.</p>",
             "color_hex": "#ee4228",
             "secondary_color_hex": "#90C0FF",
             "is_active": 1,
@@ -628,7 +628,7 @@ document.head.innerHTML += "<style>#results_container {color:#000000;} .inner_wi
   ];
   const PLAYLIST_TWO_DATA = [
     { title: "The Boy Is Mine", artist: "Monica, Brandy", coverLink: "https://upload.wikimedia.org/wikipedia/en/6/61/The_Boy_Is_Mine_Monica.png", videoIds: ["dWMvSjuDPtw"] },
-    { title: "Enjoy the Silence", artist: "Depeche Mode", coverLink: "https://m.media-amazon.com/images/I/717x+H6SMdL._UF1000,1000_QL80_.jpg", videoIds: ["ojvldIzbaMo", "8DPAUVmJHss"] }, // { title: "Round Here", artist: "George Michael", coverLink: "https://file.garden/aNtAfG887DiA_7lO/roundhere.png", videoIds: ["-u7b36yNhPY"] },
+    { title: "Enjoy the Silence", artist: "Depeche Mode", coverLink: "https://itsastronomical.com/assets/1992Duke/imgur/DJP8i6K.png", videoIds: ["ojvldIzbaMo", "8DPAUVmJHss"] }, // { title: "Round Here", artist: "George Michael", coverLink: "https://file.garden/aNtAfG887DiA_7lO/roundhere.png", videoIds: ["-u7b36yNhPY"] },
 		{ title: "Smile", artist: "Vitamin C", coverLink: "https://upload.wikimedia.org/wikipedia/en/3/31/Vitamincalbum.jpg", videoIds: ["JxrEDnHsiQI"] },
 		{ title: "Steam", artist: "Peter Gabriel", coverLink: "https://i.imgur.com/sahSH55.jpeg", videoIds: ["ByT3INEWGvY"] },
 		{ title: "Come On, Come On", artist: "Smash Mouth", coverLink: "https://i.scdn.co/image/ab67616d0000b2734f3bbf9631faeb8de9912a23", videoIds: ["NVxqZ6qRMzM"] },
@@ -2875,6 +2875,13 @@ document.head.innerHTML += "<style>#results_container {color:#000000;} .inner_wi
 
 })();
 
+
+$(document).on('click', '#candidate_id_button', () => {
+$('#running_mate_id_button').click();});
+$(document).on('click', '#opponent_selection_id_back', () => {
+$('#running_mate_id_back').click();});
+$(document).on('click', '#opponent_selection_id_button', () => {});
+		  
         quotes = ["'Manga is literature!​'","'Having been unpopular in high school is not just cause for book publications.'","'Okay, everyone!​'", "'But a poem is never actually finished. It just stops moving.'", "'Okay? I'm counting on you. Thanks for reading.'", "'The world is full of horrible people, and we're all worthless anyway.'", "'My dad would beat the shit out of me if he saw this.'", "'Not all good times must come to an end.'", "'You kind of left her hanging this morning, you know?'", "fucking monikammmmmmm", "'Just Monika.'", "'I gently open the door.'", "This game is not suitable for children or those who are easily disturbed."]
 
 customquote = quotes[Math.floor((Math.random() * quotes.length))]
